@@ -10,7 +10,7 @@ on:
 jobs:
   sonarcloud:
     name: SonarCloud
-    runs-on: ubuntu-latest
+    runs-on: macOS-latest
     steps:
       - uses: actions/checkout@v3
         with:
@@ -24,13 +24,12 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-build-
             ${{ runner.os }}-
+      - name: Install Pods
+        run: pod install 
       - name: Build the Project
         run: xcodebuild -workspace "your_workspace.xcworkspace" -scheme "YourSchemeName" -configuration "Release" build
-      - name: Generate Compilation Database
-        run: build-wrapper-linux-x86-64 --out-dir build-wrapper-output ./configure
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_CFAMILY_COMPILE_COMMANDS: build-wrapper-output/compile_commands.json<|start_header_id|><|start_header_id|>assistant<|end_header_id|>

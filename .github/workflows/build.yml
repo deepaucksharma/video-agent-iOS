@@ -15,25 +15,25 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          path: video-agent-iOS  # Specify the project directory
+          path: NewRelicVideoCore  # Target the NewRelicVideoCore directory
 
       - name: Cache dependencies
         uses: actions/cache@v3
         with:
           path: |
-            video-agent-iOS/Pods  # Update the path to Pods directory
-          key: ${{ runner.os }}-build-${{ hashFiles('video-agent-iOS/Podfile.lock') }}  # Update the key
+            NewRelicVideoCore/Pods  # Update the path
+          key: ${{ runner.os }}-build-${{ hashFiles('NewRelicVideoCore/Podfile.lock') }}  # Update the key
           restore-keys: |
             ${{ runner.os }}-build-
             ${{ runner.os }}-
 
       - name: Install Pods
         run: pod install
-        working-directory: video-agent-iOS  # Specify the project directory
+        working-directory: NewRelicVideoCore  # Update the working directory
 
       - name: Build the Project
-        run: xcodebuild -workspace "your_workspace.xcworkspace" -scheme "YourSchemeName" -configuration "Release" build
-        working-directory: video-agent-iOS  # Specify the project directory
+        run: xcodebuild -workspace "NewRelicVideoCore.xcworkspace" -scheme "iOS NewRelicVideoCore" -configuration "Release" build  # Replace with actual workspace and scheme names if necessary
+        working-directory: NewRelicVideoCore  # Update the working directory
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master

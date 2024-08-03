@@ -32,7 +32,7 @@ jobs:
         working-directory: NewRelicVideoCore  # Update the working directory
 
       - name: Build the Project
-        run: xcodebuild -workspace "NewRelicVideoCore.xcworkspace" -scheme "iOS NewRelicVideoCore" -configuration "Release" build  # Replace with actual workspace and scheme names if necessary
+        run: xcodebuild -workspace "NewRelicVideoCore.xcworkspace" -scheme "iOS NewRelicVideoCore" -configuration "Release" build
         working-directory: NewRelicVideoCore  # Update the working directory
 
       - name: SonarCloud Scan

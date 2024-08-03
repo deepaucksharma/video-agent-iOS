@@ -15,25 +15,27 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          path: Test/iOS/CoreTests  # Target the CoreTests directory
+          # Correct the checkout path to the CoreTests directory
+          path: Test/iOS/CoreTests
 
       - name: Cache dependencies
         uses: actions/cache@v3
         with:
           path: |
-            Test/iOS/CoreTests/Pods  # Update the path
-          key: ${{ runner.os }}-build-${{ hashFiles('Test/iOS/CoreTests/Podfile.lock') }}  # Update the key
+            Test/iOS/CoreTests/Pods
+          key: ${{ runner.os }}-build-${{ hashFiles('Test/iOS/CoreTests/Podfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-build-
             ${{ runner.os }}-
 
       - name: Install Pods
+        # Specify the working directory for pod install
         run: pod install
-        working-directory: Test/iOS/CoreTests  # Update the working directory
+        working-directory: Test/iOS/CoreTests
 
       - name: Build the Project
-        run: xcodebuild -workspace "CoreTests.xcworkspace" -scheme "CoreTests" -configuration "Release" build  # Replace with actual workspace and scheme names if necessary
-        working-directory: Test/iOS/CoreTests  # Update the working directory
+        run: xcodebuild -workspace "CoreTests.xcworkspace" -scheme "CoreTests" -configuration "Release" build
+        working-directory: Test/iOS/CoreTests
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
